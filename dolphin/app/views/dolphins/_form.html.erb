@@ -1,0 +1,29 @@
+<%= form_for(@dolphin) do |f| %>
+  <% if @dolphin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dolphin.errors.count, "error") %> prohibited this dolphin from being saved:</h2>
+
+      <ul>
+      <% @dolphin.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :from %><br>
+    <%= f.text_field :from %>
+  </div>
+  <div class="field">
+    <%= f.label :to %><br>
+    <%= f.text_field :to %>
+  </div>
+  <div class="field">
+    <%= f.label :source %><br>
+    <%= f.text_field :source %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Dolphins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>From</th>
+      <th>To</th>
+      <th>Source</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dolphins.each do |dolphin| %>
+      <tr>
+        <td><%= dolphin.from %></td>
+        <td><%= dolphin.to %></td>
+        <td><%= dolphin.source %></td>
+        <td><%= link_to 'Show', dolphin %></td>
+        <td><%= link_to 'Edit', edit_dolphin_path(dolphin) %></td>
+        <td><%= link_to 'Destroy', dolphin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dolphin', new_dolphin_path %>
