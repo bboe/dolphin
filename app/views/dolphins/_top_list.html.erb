@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-6 col-ms-12">
   <h3>Top <%= name %></h3>
 
   <table class="table table-striped table-condensed">
@@ -13,7 +13,7 @@
     <tbody>
       <% list.each do |user| %>
         <tr>
-          <td><%= user.name %></td>
+          <td><%= display_user(user) %></td>
           <td><%= user.to_count %></td>
           <td><%= user.from_count %></td>
         </tr>

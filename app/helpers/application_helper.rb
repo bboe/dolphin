@@ -1,5 +1,6 @@
 module ApplicationHelper
   def display_user(user)
-    "<div><img src=\"#{user.image_url}\"><br>#{user.name}</div>".html_safe
+    image = user.image_url.present? ? "<img src=\"#{user.image_url}\"> " : ""
+    "#{image}#{user.name}".html_safe
   end
 end
