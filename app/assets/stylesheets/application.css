@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+ .no-pad {
+    padding: 0 !important;
+}
+
+.field_with_errors {
+    display: inline;
+}

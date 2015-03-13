@@ -1,0 +1,10 @@
+<div class="well well-sm">
+
+<%= form_for(@dolphin ||= Dolphin.new) do |f| %>
+  Dolphin <%= current_user.name %>:
+  <%= f.label :from, value: 'Your Email' %>
+  <%= f.text_field :from, autofocus: true %>
+  <%= f.submit %>
+<% end %>
+
+</div>

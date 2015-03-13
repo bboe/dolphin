@@ -1,12 +1,6 @@
 class DolphinsController < AuthenticatedController
   def index
-    @dolphins = Dolphin.includes(:from, :to).order('created_at desc').limit(16)
-    @top_froms = Dolphin.top(by: :from, limit: 8)
-    @top_tos = Dolphin.top(by: :to, limit: 8)
-  end
-
-  def new
-    @dolphin = Dolphin.new
+    load_index_variables
   end
 
   def create
@@ -17,7 +11,18 @@ class DolphinsController < AuthenticatedController
     if @dolphin.save
       redirect_to({action: :index}, notice: 'Dolphin was successfully created.')
     else
-      render :new
+      flash[:alert] = "Could not dolphin."
+
+      load_index_variables
+      render :index
     end
+  end
+
+  private
+
+  def load_index_variables
+    @dolphins = Dolphin.includes(:from, :to).order('created_at desc').limit(16)
+    @top_froms = Dolphin.top(by: :from, limit: 8)
+    @top_tos = Dolphin.top(by: :to, limit: 8)
   end
 end
