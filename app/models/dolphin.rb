@@ -11,7 +11,7 @@ class Dolphin < ActiveRecord::Base
     unless [:from, :to].include?(by.to_sym)
       raise ArgumentError.new('invalid `by` parameter')
     end
-    User.order("#{by}_count desc").limit(limit)
+    User.order("#{by}_count desc").where("#{by}_count > 0").limit(limit)
   end
 
   private
