@@ -18,6 +18,10 @@
     padding: 0 !important;
 }
 
+.inline {
+    display: inline !important;
+}
+
 .field_with_errors {
     display: inline;
 }
