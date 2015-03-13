@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+exit 0 if User.count > 0 || Rails.env.production?
+
 1.upto(16) do |i|
   User.create(name: "User#{i}", email: "#{i}@test", image_url: '',
               provider: 'Test', uid: i)
