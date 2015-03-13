@@ -1,6 +1,6 @@
 class DolphinsController < AuthenticatedController
   def index
-    load_index_variables
+    load_index_variables params
   end
 
   def create
@@ -25,8 +25,10 @@ class DolphinsController < AuthenticatedController
 
   private
 
-  def load_index_variables
-    @dolphins = Dolphin.includes(:from, :to).order('created_at desc').limit(16)
+  def load_index_variables params={}
+    @dolphins = Dolphin.includes(:from, :to)
+                       .order('created_at desc')
+                       .paginate(page: params[:page], per_page: 8)
     @top_froms = Dolphin.top(by: :from, limit: 8)
     @top_tos = Dolphin.top(by: :to, limit: 8)
   end

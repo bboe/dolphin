@@ -50,6 +50,7 @@ gem 'rails_12factor', group: :production
 gem 'devise'
 gem 'omniauth-google-oauth2', '~> 0.2.6'
 gem 'puma'
-gem 'rack-timeout'
+gem 'rack-timeout', group: :production
+gem 'will_paginate', '~> 3.0.6'
 
 ruby "2.2.1"
