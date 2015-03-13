@@ -15,8 +15,8 @@
     <thead>
       <tr>
         <th>Date</th>
-        <th>From</th>
-        <th>To</th>
+        <th>Receipient</th>
+        <th>Sender</th>
       </tr>
     </thead>
 
@@ -24,8 +24,8 @@
       <% @dolphins.each do |dolphin| %>
         <tr>
           <td><%= dolphin.created_at.in_time_zone('America/Los_Angeles') %></td>
-          <td><%= display_user(dolphin.from) %></td>
           <td><%= display_user(dolphin.to) %></td>
+          <td><%= display_user(dolphin.from) %></td>
         </tr>
       <% end %>
     </tbody>
