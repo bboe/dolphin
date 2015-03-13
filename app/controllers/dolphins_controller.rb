@@ -8,16 +8,14 @@ class DolphinsController < AuthenticatedController
   end
 
   def create
-    @dolphin = Dolphin.new(dolphin_params)
+    from = User.find_by(email: params.require(:dolphin).permit(:from)[:from])
+    ip = request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
+
+    @dolphin = Dolphin.new(from: from, to: current_user, source: ip)
     if @dolphin.save
-      redirect_to @dolphin, notice: 'Dolphin was successfully created.'
+      redirect_to({action: :index}, notice: 'Dolphin was successfully created.')
     else
       render :new
     end
   end
-
-  private
-    def dolphin_params
-      params.require(:dolphin).permit(:from, :to, :source)
-    end
 end

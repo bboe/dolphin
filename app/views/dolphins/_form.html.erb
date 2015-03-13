@@ -12,16 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :from %><br>
+    <%= f.label :from, value: 'From Email' %><br>
     <%= f.text_field :from %>
-  </div>
-  <div class="field">
-    <%= f.label :to %><br>
-    <%= f.text_field :to %>
-  </div>
-  <div class="field">
-    <%= f.label :source %><br>
-    <%= f.text_field :source %>
   </div>
   <div class="actions">
     <%= f.submit %>

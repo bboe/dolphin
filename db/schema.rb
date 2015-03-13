@@ -11,18 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312234743) do
+ActiveRecord::Schema.define(version: 20150313031328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "dolphins", force: :cascade do |t|
-    t.string   "from",       null: false
-    t.string   "to",         null: false
     t.string   "source",     null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "from_id",    null: false
+    t.integer  "to_id",      null: false
   end
+
+  add_index "dolphins", ["from_id"], name: "index_dolphins_on_from_id", using: :btree
+  add_index "dolphins", ["to_id"], name: "index_dolphins_on_to_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",       null: false
@@ -37,4 +40,6 @@ ActiveRecord::Schema.define(version: 20150312234743) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true, using: :btree
 
+  add_foreign_key "dolphins", "users", column: "from_id"
+  add_foreign_key "dolphins", "users", column: "to_id"
 end
