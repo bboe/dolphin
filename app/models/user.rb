@@ -17,4 +17,12 @@ class User < ActiveRecord::Base
 
     user
   end
+
+  def normed_image_url
+    if image_url == 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50'
+      ''
+    else
+      image_url
+    end
+  end
 end
