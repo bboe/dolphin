@@ -1,0 +1,23 @@
+<div>
+  <h3>Top <%= name %></h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th>Received</th>
+        <th>Sent</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% list.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.to_count %></td>
+          <td><%= user.from_count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

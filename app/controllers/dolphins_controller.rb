@@ -1,6 +1,8 @@
 class DolphinsController < AuthenticatedController
   def index
-    @dolphins = Dolphin.all
+    @dolphins = Dolphin.includes(:from, :to).order('created_at desc').limit(16)
+    @top_froms = Dolphin.top(by: :from, limit: 8)
+    @top_tos = Dolphin.top(by: :to, limit: 8)
   end
 
   def new

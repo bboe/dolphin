@@ -1,4 +1,12 @@
-<h1>Listing Dolphins</h1>
+<h1>Wall of Dolphins</h1>
+
+<%= render(partial: "top_list",
+           locals: {name: 'Dolphineers', list: @top_froms}) %>
+
+<%= render(partial: "top_list",
+           locals: {name: 'Dolphinees', list: @top_tos}) %>
+
+<h3>Recent Dolphins</h3>
 
 <table>
   <thead>
