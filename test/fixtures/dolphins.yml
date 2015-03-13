@@ -1,11 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  from: MyString
-  to: MyString
-  source: MyString
+<% 1.upto(128) do |i| %>
+dolphin_<%= i %>:
+  id: <%= i %>
+  from_id: <%= (i < 2 ? i % 2 : i % 16) + 1 %>
+  to_id: <%= (i < 2 ? (i + 1) % 2 : (i + 1) % 16) + 1 %>
+  source: Test
+<% end %>
 
-two:
-  from: MyString
-  to: MyString
-  source: MyString
+old_dolphin:
+  from_id: 1
+  to_id: 2
+  source: Test
+  created_at: 2000/01/01
+  updated_at: 2000/01/01

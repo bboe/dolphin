@@ -4,8 +4,12 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+<% 1.upto(16) do |i| %>
+user_<%= i %>:
+ id: <%= i %>
+ name: User <%= i %>
+ email: <%= i %>@test
+ image_url: ''
+ provider: test
+ uid: <%= i %>
+<% end %>
