@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for(:users,
              controllers: { omniauth_callbacks: "users/omniauth_callbacks" })
 
-  resources :dolphins
+  resources :dolphins, only: [:create, :index]
 
   root 'dolphins#index'
 
