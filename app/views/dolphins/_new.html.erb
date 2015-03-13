@@ -1,10 +1,13 @@
 <div class="well well-sm">
 
+<p>Encourage <%= current_user.name %> to lock their computer by
+   dolphining them. Note: You will need to have visited this web service
+   yourself before you can dolphin someone.</p>
+
 <%= form_for(@dolphin ||= Dolphin.new) do |f| %>
-  Dolphin <%= current_user.name %>:
   <%= f.label :from, value: 'Your Email' %>
   <%= f.text_field :from, autofocus: true %>
-  <%= f.submit %>
+  <%= f.submit 'Dolphin!' %>
 <% end %>
 
 </div>
