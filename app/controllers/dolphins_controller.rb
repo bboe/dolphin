@@ -4,15 +4,20 @@ class DolphinsController < AuthenticatedController
   end
 
   def create
-    from = User.find_by(email: params.require(:dolphin).permit(:from)[:from])
+    from_email = params.require(:dolphin).permit(:from)[:from]
+    if ENV["GOOGLE_CLIENT_DOMAIN"] and !from_email.include?('@')
+      from_email += "@#{ENV["GOOGLE_CLIENT_DOMAIN"]}"
+    end
+
+    from = User.find_by(email: from_email)
     ip = request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
 
     @dolphin = Dolphin.new(from: from, to: current_user, source: ip)
     if @dolphin.save
       redirect_to({action: :index}, notice: 'Dolphin was successfully created.')
     else
-      flash[:alert] = "Could not dolphin."
-
+      flash[:alert] = @dolphin.errors[:from].first
+      @dolphin.from = nil
       load_index_variables
       render :index
     end
