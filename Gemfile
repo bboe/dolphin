@@ -47,6 +47,7 @@ end
 gem 'rails_12factor', group: :production
 
 # Manually added
+gem 'devise'
 gem 'omniauth-google-oauth2', '~> 0.2.6'
 gem 'puma'
 gem 'rack-timeout'
