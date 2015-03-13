@@ -4,12 +4,7 @@ class DolphinsController < AuthenticatedController
   end
 
   def create
-    from_email = params.require(:dolphin).permit(:from)[:from]
-    if ENV["GOOGLE_CLIENT_DOMAIN"] and !from_email.include?('@')
-      from_email += "@#{ENV["GOOGLE_CLIENT_DOMAIN"]}"
-    end
-
-    from = User.find_by(email: from_email)
+    from = User.find_by(email: domained_email(params[:dolphin][:from]))
     ip = request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
 
     @dolphin = Dolphin.new(from: from, to: current_user, source: ip)
@@ -26,10 +21,26 @@ class DolphinsController < AuthenticatedController
   private
 
   def load_index_variables params={}
-    @dolphins = Dolphin.includes(:from, :to)
-                       .order('created_at desc')
-                       .paginate(page: params[:page], per_page: 8)
+    query = Dolphin.includes(:from, :to).order('created_at desc')
+
+    if params[:filter]
+      if (user = User.find_by(email: domained_email(params[:filter])))
+        query = query.where('from_id=? or to_id=?', *[user.id] * 2)
+      else
+        flash[:alert] = "#{params[:filter]} does not match a valid email"
+        params[:filter] = nil
+      end
+    end
+
+    @dolphins = query.paginate(page: params[:page], per_page: 8)
     @top_froms = Dolphin.top(by: :from, limit: 8)
     @top_tos = Dolphin.top(by: :to, limit: 8)
+  end
+
+  def domained_email(email)
+    if ENV["GOOGLE_CLIENT_DOMAIN"] and !email.include?('@')
+      email += "@#{ENV["GOOGLE_CLIENT_DOMAIN"]}"
+    end
+    email
   end
 end

@@ -9,6 +9,11 @@
 </div>
 
 <div class="col-xs-12">
+  <span class="pull-right">
+    <%= form_tag '/', method: :get do %>
+      <%= text_field_tag :filter, params[:filter], placeholder: 'Filter Users', class: 'form-control' %>
+    <% end %>
+  </span>
   <h3>Recent Dolphins</h3>
 
   <table class="table table-striped table-condensed">
