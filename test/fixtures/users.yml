@@ -12,4 +12,6 @@ user_<%= i %>:
  image_url: ''
  provider: test
  uid: <%= i %>
+ to_count: 1
+ from_count: 1
 <% end %>

@@ -1,16 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-<% 1.upto(128) do |i| %>
+<% 1.upto(16) do |i| %>
 dolphin_<%= i %>:
   id: <%= i %>
-  from_id: <%= (i < 2 ? i % 2 : i % 16) + 1 %>
-  to_id: <%= (i < 2 ? (i + 1) % 2 : (i + 1) % 16) + 1 %>
+  from_id: <%= i %>
+  to_id: <%= i % 16 + 1 %>
   source: Test
+  created_at: 2000/01/<%= i %>
+  updated_at: 2000/01/<%= i %>
 <% end %>
-
-old_dolphin:
-  from_id: 1
-  to_id: 2
-  source: Test
-  created_at: 2000/01/01
-  updated_at: 2000/01/01

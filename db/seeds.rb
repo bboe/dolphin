@@ -5,3 +5,19 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+1.upto(16) do |i|
+  User.create(name: "User#{i}", email: "#{i}@test", image_url: '',
+              provider: 'Test', uid: i)
+end
+
+users = Array.new(User.all)
+
+64.times do
+  to = users.sample
+  from = nil
+  until from.present? && from != to do
+    from = users.sample
+  end
+  Dolphin.create!(from: from, to: to, source: 'Test')
+end
