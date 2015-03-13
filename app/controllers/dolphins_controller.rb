@@ -1,4 +1,4 @@
-class DolphinsController < ApplicationController
+class DolphinsController < AuthenticatedController
   before_action :set_dolphin, only: [:show, :edit, :update, :destroy]
 
   # GET /dolphins

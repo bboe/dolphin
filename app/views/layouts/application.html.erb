@@ -12,6 +12,7 @@
 <p id="alert"><%= alert %></p>
 
 <%= display_user(current_user) %>
+<%= link_to "Re-Authenticate", user_omniauth_authorize_path(:google_oauth2) %>
 
 <%= yield %>
 
