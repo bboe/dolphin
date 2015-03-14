@@ -1,6 +1,6 @@
 # Dolphin
 
-https://dolphinfolio.herokuapp.com/
+https://dolphin-demo.herokuapp.com/
 
 # Copyright and license
 
