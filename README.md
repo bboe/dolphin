@@ -1,4 +1,4 @@
-# Dolphin
+# ![Dolphin Logo](https://github.com/bboe/dolphin/blob/14e347c6ee3182d898ddd69247adfec6e110d204/app/assets/images/dolphin.png) Dolphin
 
 Dolphin is a webservice designed to promote discussion about better security
 practices. At its core Dolphin provides a fun game-like environment that
