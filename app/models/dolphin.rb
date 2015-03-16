@@ -18,9 +18,9 @@ class Dolphin < ActiveRecord::Base
   private
 
   def dolphin_timelimit
-    if Dolphin.where(to_id: to_id).where("created_at > now() - interval '10 minutes'").first
+    if (dolphin = Dolphin.where(to_id: to_id).where("created_at > now() - interval '10 minutes'").first)
       errors.add(:from,
-        "#{to.name} was already dolphined within the last 10 minutes. Please log them out via ctrl+shift+eject.")
+        "#{to.name} was dolphined within the last 10 minutes by #{dolphin.from.name}. Please log #{to.name} out (ctrl+shift+eject on OS X).")
     end
   end
 

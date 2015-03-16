@@ -14,14 +14,18 @@
  *= require_self
  */
 
- .no-pad {
-    padding: 0 !important;
+.bold {
+    font-weight: bold;
+}
+
+.field_with_errors {
+    display: inline;
 }
 
 .inline {
     display: inline !important;
 }
 
-.field_with_errors {
-    display: inline;
+ .no-pad {
+    padding: 0 !important;
 }
