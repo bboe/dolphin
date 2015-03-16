@@ -28,7 +28,7 @@ class DolphinsController < AuthenticatedController
       if (user = User.find_by(email: domained_email(params[:filter])))
         query = query.where('from_id=? or to_id=?', *[user.id] * 2)
       else
-        flash[:alert] = "#{params[:filter]} does not match a valid email"
+        flash.now[:alert] = "#{params[:filter]} does not match a valid email"
         params[:filter] = nil
       end
     end
