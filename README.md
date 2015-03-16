@@ -9,7 +9,7 @@ Dolphin relies on Google OAuth to verify accounts. Under non-public
 deployments, it is intended to be configured to only authorize accounts from
 the specific Google Apps domain.
 
-A public demo version of Dolphinn can be found at:
+A public demo version of Dolphin can be found at:
 https://dolphin-demo.herokuapp.com/
 
 ## Heroku Deployment
