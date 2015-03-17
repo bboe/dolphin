@@ -16,9 +16,9 @@ class Dolphin < ActiveRecord::Base
     query = User.where("#{by}_count > 0")
 
     if by == :from
-      query = query.order(from_count: :desc, to_count: :asc)
+      query = query.order(from_count: :desc, to_count: :asc, updated_at: :asc)
     else
-      query = query.order(to_count: :desc, from_count: :asc)
+      query = query.order(to_count: :desc, from_count: :asc, updated_at: :asc)
     end
 
     query.limit(limit)
