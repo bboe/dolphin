@@ -8,11 +8,20 @@ class Dolphin < ActiveRecord::Base
   validate :dolphin_yourself
   validate :dolphin_timelimit
 
-  def self.top(by:, limit: 10)
+  def self.top(by:, limit: 16)
     unless [:from, :to].include?(by.to_sym)
       raise ArgumentError.new('invalid `by` parameter')
     end
-    User.order("#{by}_count desc").where("#{by}_count > 0").limit(limit)
+
+    query = User.where("#{by}_count > 0")
+
+    if by == :from
+      query = query.order(from_count: :desc, to_count: :asc)
+    else
+      query = query.order(to_count: :desc, from_count: :asc)
+    end
+
+    query.limit(limit)
   end
 
   private
