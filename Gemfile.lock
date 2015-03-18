@@ -84,9 +84,12 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    metaclass (0.0.4)
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
+    mocha (1.1.0)
+      metaclass (~> 0.0.1)
     multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -199,6 +202,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.0)
   jquery-rails
+  mocha
   omniauth-google-oauth2 (~> 0.2.6)
   pg
   puma

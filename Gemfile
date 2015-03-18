@@ -49,6 +49,7 @@ gem 'rails_12factor', group: :production
 # Manually added
 gem 'devise'
 gem 'omniauth-google-oauth2', '~> 0.2.6'
+gem 'mocha', group: :test
 gem 'puma'
 gem 'rack-timeout', group: :production
 gem 'will_paginate', '~> 3.0.6'

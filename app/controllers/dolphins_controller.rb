@@ -15,7 +15,7 @@ class DolphinsController < AuthenticatedController
       flash.now[:alert] = @dolphin.errors[:from].first
       @dolphin.from = nil
       load_index_variables
-      render :index
+      render :index, status: :bad_request
     end
   end
 
@@ -39,8 +39,8 @@ class DolphinsController < AuthenticatedController
   end
 
   def domained_email(email)
-    if ENV["GOOGLE_CLIENT_DOMAIN"] and !email.include?('@')
-      email += "@#{ENV["GOOGLE_CLIENT_DOMAIN"]}"
+    if (domain = ENV['GOOGLE_CLIENT_DOMAIN']) and !email.include?('@')
+      email += "@#{domain}"
     end
     email
   end
