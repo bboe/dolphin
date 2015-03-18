@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
+  validates_presence_of :email, :name, :image_url, :provider, :uid
+  validates_uniqueness_of :email
+  validates_uniqueness_of :uid, scope: :provider
+
   has_many :dolphins_sent, class_name: :Dolphin, foreign_key: :from_id
   has_many :dolphins_received, class_name: :Dolphin, foreign_key: :to_id
 

@@ -8,8 +8,8 @@ class Dolphin < ActiveRecord::Base
   validate :dolphin_yourself
   validate :dolphin_timelimit
 
-  def self.top(by:, limit: 16)
-    unless [:from, :to].include?(by.to_sym)
+  def self.top(by:, limit: 8)
+    unless [:from, :to].include?(by.try(:to_sym))
       raise ArgumentError.new('invalid `by` parameter')
     end
 
