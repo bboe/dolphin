@@ -1,0 +1,30 @@
+{
+  "name": "dolphin",
+  "scripts": {
+    "postdeploy": "rake db:create db:migrate"
+  },
+  "env": {
+    "APP_TITLE": "Dolphin-Stage",
+    "GOOGLE_CLIENT_DOMAIN": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_ID": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_SECRET": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "RACK_ENV": "production",
+    "RAILS_ENV": "production",
+    "RAILS_SERVE_STATIC_FILES": "enabled",
+    "SECRET_KEY_BASE": {
+      "generator": "secret"
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ]
+}
