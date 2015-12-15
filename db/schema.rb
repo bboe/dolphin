@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150313174454) do
+ActiveRecord::Schema.define(version: 20150317193151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150313174454) do
     t.integer  "to_id",      null: false
   end
 
+  add_index "dolphins", ["created_at"], name: "index_dolphins_on_created_at", using: :btree
   add_index "dolphins", ["from_id"], name: "index_dolphins_on_from_id", using: :btree
   add_index "dolphins", ["to_id"], name: "index_dolphins_on_to_id", using: :btree
 

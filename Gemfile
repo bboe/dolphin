@@ -54,4 +54,4 @@ gem 'puma'
 gem 'rack-timeout', group: :production
 gem 'will_paginate', '~> 3.0.6'
 
-ruby "2.2.1"
+ruby "2.2.3"
