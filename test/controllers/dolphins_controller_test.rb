@@ -1,66 +1,70 @@
 require 'test_helper'
 
-class DolphinsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
-
-  test 'should get index when not logged in' do
-    get :index
-    assert_redirected_to user_google_oauth2_omniauth_authorize_path
-  end
+class DolphinsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
 
   test 'should get index' do
     login
-    get :index
+
+    get root_path
     assert_response :ok
-    assert_not_nil assigns(:dolphins)
-    assert_not_nil assigns(:top_froms)
-    assert_not_nil assigns(:top_tos)
+  end
+
+  test 'should get index when not logged in' do
+    get root_path
+    assert_redirected_to user_google_oauth2_omniauth_authorize_path
   end
 
   test 'should create dolphin' do
-    login
+    authenticated_user = login
+    (other_user = new_user(email: 'user2@test', uid: '2')).save!
+
     assert_difference('Dolphin.count') do
-      post :create, dolphin: { source: 'Test', from: users(:user2).email }
+      post dolphins_path, params: { dolphin: { source: 'Test', from: other_user.email } }
+      assert_redirected_to dolphins_path
     end
 
-    assert (dolphin = assigns(:dolphin))
-    assert_equal users(:user2), dolphin.from
-    assert_equal users(:user1), dolphin.to
-
-    assert_redirected_to dolphins_path
+    dolphin = Dolphin.last
+    assert_equal other_user, dolphin.from
+    assert_equal authenticated_user, dolphin.to
   end
 
   test 'should create dolphin via domained email' do
-    login
-    ENV.stubs(:[]).returns(nil)
-    ENV.expects(:[]).with('GOOGLE_CLIENT_DOMAIN').returns('test')
+    authenticated_user = login
+    (other_user = new_user(email: 'user2@test', uid: '2')).save!
+    Rails.configuration.google_client_domain = 'test'
 
     assert_difference('Dolphin.count') do
-      post :create, dolphin: { source: 'Test', from: '2' }
+      post dolphins_path, params: { dolphin: { source: 'Test', from: 'user2' } }
+      assert_redirected_to dolphins_path
     end
 
-    assert (dolphin = assigns(:dolphin))
-    assert_equal users(:user2), dolphin.from
-    assert_equal users(:user1), dolphin.to
-
-    assert_redirected_to dolphins_path
+    dolphin = Dolphin.last
+    assert_equal other_user, dolphin.from
+    assert_equal authenticated_user, dolphin.to
   end
 
   test 'should not create dolphin via invalid email' do
     login
     assert_no_difference('Dolphin.count') do
-      post :create, dolphin: { source: 'Test', from: '2' }
+      post dolphins_path, params: { dolphin: { source: 'Test', from: '2' } }
+      assert_response :bad_request
     end
 
-    assert (dolphin = assigns(:dolphin))
-    assert_nil dolphin.from
-    assert_response :bad_request
+    assert_nil Dolphin.last
+  end
+
+  test 'should not create dolphin when not logged in' do
+    get root_path
+    assert_redirected_to user_google_oauth2_omniauth_authorize_path
   end
 
   private
 
   def login
-    @request.env['devise.mapping'] = Devise.mappings[:admin]
-    sign_in users(:user1)
+    user = new_user
+    user.save!
+    sign_in user
+    user
   end
 end

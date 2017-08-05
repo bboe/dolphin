@@ -1,17 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-<% 1.upto(32) do |i| %>
-user<%= i %>:
- id: <%= i %>
- name: User <%= i %>
- email: <%= i %>@test
- image_url: ''
- provider: test
- uid: <%= i %>
- to_count: 1
- from_count: 1
-<% end %>

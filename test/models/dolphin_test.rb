@@ -4,21 +4,41 @@ require_relative 'user_test'
 class DolphinTest < ActiveSupport::TestCase
 
   test 'dolphin time limit' do
-    assert create_dolphin(from: users(:user2), to: users(:user1)).save
-    dolphin = create_dolphin(from: users(:user3), to: users(:user1))
-    assert dolphin.invalid?, 'can only be dolphined once every 10 minutes'
-    assert_equal [:from], dolphin.errors.keys
+    (user1 = new_user).save!
+    (user2 = new_user(email: 'user2@test', uid: 2)).save!
+    (user3 = new_user(email: 'user3@test', uid: 3)).save!
+    new_dolphin(from: user2, to: user1).save!
+
+    dolphin = new_dolphin(from: user3, to: user1)
+    assert_predicate dolphin, :invalid?
+    assert_equal({from: ["Test User was dolphined within the last 10 minutes by Test User. Please log Test User out (ctrl+shift+eject on OS X)."]}, dolphin.errors.messages)
   end
 
-  test 'presence of fields' do
-    assert (dolphin = Dolphin.new).invalid?, 'missing required fields'
-    assert_equal [:from, :to, :source], dolphin.errors.keys
+  test 'presence of from' do
+    dolphin = new_dolphin(from: nil)
+    assert_predicate dolphin, :invalid?
+    assert_equal({from: ["must exist", "invalid user"]}, dolphin.errors.messages)
+  end
+
+  test 'presence of source' do
+    [nil, ''].each do |value|
+      dolphin = new_dolphin(source: value)
+      assert_predicate dolphin, :invalid?
+      assert_equal({source: ["can't be blank"]}, dolphin.errors.messages)
+    end
+  end
+
+  test 'presence of to' do
+    dolphin = new_dolphin(to: nil)
+    assert_predicate dolphin, :invalid?
+    assert_equal({to: ["must exist", "invalid user"]}, dolphin.errors.messages)
   end
 
   test 'prevent self dolphin' do
-    dolphin = create_dolphin(from: users(:user1), to: users(:user1))
-    assert dolphin.invalid?, 'to and from cannot be the same'
-    assert_equal [:from], dolphin.errors.keys
+    (user = new_user).save!
+    dolphin = new_dolphin(from: user, to: user)
+    assert_predicate dolphin, :invalid?
+    assert_equal({from: ['cannot dolphin yourself']}, dolphin.errors.messages)
   end
 
   test 'self.top has invalid parameters' do
@@ -28,6 +48,16 @@ class DolphinTest < ActiveSupport::TestCase
   end
 
   test 'self.top limits results' do
+    users = []
+    16.times do |i|
+      (user = new_user(email: "u#{i}@test", uid: i)).save!
+      users << user
+    end
+
+    16.times do |i|
+      new_dolphin(from: users[i % 16], to: users[(i + 1) % 16]).save!
+    end
+
     assert_equal User.count, Dolphin.top(by: :from, limit: nil).count
     [0, 1, 7, User.count - 1, User.count].each do |limit|
       assert_equal limit, Dolphin.top(by: :from, limit: limit).count
@@ -35,63 +65,70 @@ class DolphinTest < ActiveSupport::TestCase
   end
 
   test 'self.top order by from' do
-    u1 = create_user(email: 'u1@test', uid: '01').tap { |u| u.save! }
-    u2 = create_user(email: 'u2@test', uid: '02').tap { |u| u.save! }
+    users = []
+    4.times do |i|
+      (user = new_user(email: "u#{i}@test", uid: i)).save!
+      users << user
+    end
 
     u1_time = Time.zone.now() - 3600
 
     # Send an equal number of dolphins from each user
-    1.upto(4) do |i|
-      create_dolphin(from: u1, to: users("user#{i}"),
-                     created_at: u1_time, updated_at: u1_time).save!
-      create_dolphin(from: u2, to: users("user#{i}"),
-                     created_at: u1_time + 1, updated_at: u1_time + 1).save!
+    2.upto(3) do |i|
+      new_dolphin(from: users[0], to: users[i],
+                  created_at: u1_time, updated_at: u1_time).save!
+      new_dolphin(from: users[1], to: users[i],
+                  created_at: u1_time + 1, updated_at: u1_time + 1).save!
     end
-    assert_equal u1.reload.from_count, u2.reload.from_count
-    assert_equal u1.to_count, u2.to_count
-    assert_equal [u1, u2], Dolphin.top(by: :from, limit: 2).to_a
+    assert_equal users[0].reload.from_count, users[1].reload.from_count
+    assert_equal users[0].to_count, users[1].to_count
+    assert_equal [users[0], users[1]], Dolphin.top(by: :from, limit: 2).to_a
 
     # Have u1 receive a dolphin
-    create_dolphin(from: users(:user1), to: u1).save!
-    assert_equal u1.reload.from_count, u2.reload.from_count
-    assert u1.to_count > u2.to_count
-    assert_equal [u2, u1], Dolphin.top(by: :from, limit: 2).to_a
+    new_dolphin(from: users[2], to: users[0]).save!
+    assert_equal users[0].reload.from_count, users[1].reload.from_count
+    assert_operator users[0].to_count, :>, users[1].to_count
+    assert_equal [users[1], users[0]], Dolphin.top(by: :from, limit: 2).to_a
 
     # Increase u1's from count
-    create_dolphin(from: u1, to: users(:user5)).save!
-    assert u1.reload.from_count > u2.reload.from_count
-    assert_equal [u1, u2], Dolphin.top(by: :from, limit: 2).to_a
+    new_dolphin(from: users[0], to: users[-1]).save!
+    assert_operator users[0].reload.from_count, :>, users[1].reload.from_count
+    assert_equal [users[0], users[1]], Dolphin.top(by: :from, limit: 2).to_a
   end
 
   test 'self.top order by to' do
-    u1 = create_user(email: 'u1@test', uid: '01').tap { |u| u.save! }
-    u2 = create_user(email: 'u2@test', uid: '02').tap { |u| u.save! }
+    users = []
+    4.times do |i|
+      (user = new_user(email: "u#{i}@test", uid: i)).save!
+      users << user
+    end
+
+    u1_time = Time.zone.now() - 3600
 
     # Send an equal number of dolphins from each user
-    4.times do |i|
-      dtime = Time.zone.now - 3600 + i * 600
-      create_dolphin(from: users(:user1), to: u1,
-                     created_at: dtime, updated_at: dtime).save!
-      create_dolphin(from: users(:user1), to: u2,
-                     created_at: dtime, updated_at: dtime + 1).save!
+    2.upto(3) do |i|
+      new_dolphin(from: users[i], to: users[0],
+                  created_at: u1_time, updated_at: u1_time).save!
+      new_dolphin(from: users[i], to: users[1],
+                  created_at: u1_time + 1, updated_at: u1_time + 1).save!
     end
-    assert_equal u1.reload.from_count, u2.reload.from_count
-    assert_equal u1.to_count, u2.to_count
-    assert_equal [u1, u2], Dolphin.top(by: :to, limit: 2).to_a
+    assert_equal users[0].reload.from_count, users[1].reload.from_count
+    assert_equal users[0].to_count, users[1].to_count
+    assert_equal [users[0], users[1]], Dolphin.top(by: :to, limit: 2).to_a
 
     # Have u1 send a dolphin
-    create_dolphin(from: u1, to: users(:user1)).save!
-    assert u1.reload.from_count > u2.reload.from_count
-    assert_equal u1.to_count, u2.to_count
-    assert_equal [u2, u1], Dolphin.top(by: :to, limit: 2).to_a
+    new_dolphin(from: users[0], to: users[2]).save!
+    assert_operator users[0].reload.from_count, :>, users[1].reload.from_count
+    assert_equal users[0].to_count, users[1].to_count
+    assert_equal [users[1], users[0]], Dolphin.top(by: :to, limit: 2).to_a
 
     # Increase u1's to count
-    create_dolphin(from: users(:user5), to: u1).save!
-    assert u1.reload.to_count > u2.reload.to_count
-    assert_equal [u1, u2], Dolphin.top(by: :to, limit: 2).to_a
+    new_dolphin(from: users[-1], to: users[0]).save!
+    assert_operator users[0].reload.to_count, :>, users[1].reload.to_count
+    assert_equal [users[0], users[1]], Dolphin.top(by: :to, limit: 2).to_a
   end
 
   test 'valid dolphin' do
-    assert create_dolphin.valid?
+    assert_predicate new_dolphin, :valid?
   end
 end
