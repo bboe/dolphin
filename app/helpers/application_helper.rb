@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def display_user(user)
     image = "<img src=\"#{user.normed_image_url.present? ? user.normed_image_url : image_path('dolphin.png')}\"> "

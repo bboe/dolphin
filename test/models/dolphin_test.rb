@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require_relative 'user_test'
 
 class DolphinTest < ActiveSupport::TestCase
-
   test 'dolphin time limit' do
     (user1 = new_user).save!
     (user2 = new_user(email: 'user2@test', uid: 2)).save!
@@ -11,38 +12,38 @@ class DolphinTest < ActiveSupport::TestCase
 
     dolphin = new_dolphin(from: user3, to: user1)
     assert_predicate dolphin, :invalid?
-    assert_equal({from: ["Test User was dolphined within the last 10 minutes by Test User. Please log Test User out (ctrl+shift+eject on OS X)."]}, dolphin.errors.messages)
+    assert_equal({ from: ['Test User was dolphined within the last 10 minutes by Test User. Please log Test User out (ctrl+shift+eject on OS X).'] }, dolphin.errors.messages)
   end
 
   test 'presence of from' do
     dolphin = new_dolphin(from: nil)
     assert_predicate dolphin, :invalid?
-    assert_equal({from: ["must exist", "invalid user"]}, dolphin.errors.messages)
+    assert_equal({ from: ['must exist', 'invalid user'] }, dolphin.errors.messages)
   end
 
   test 'presence of source' do
     [nil, ''].each do |value|
       dolphin = new_dolphin(source: value)
       assert_predicate dolphin, :invalid?
-      assert_equal({source: ["can't be blank"]}, dolphin.errors.messages)
+      assert_equal({ source: ["can't be blank"] }, dolphin.errors.messages)
     end
   end
 
   test 'presence of to' do
     dolphin = new_dolphin(to: nil)
     assert_predicate dolphin, :invalid?
-    assert_equal({to: ["must exist", "invalid user"]}, dolphin.errors.messages)
+    assert_equal({ to: ['must exist', 'invalid user'] }, dolphin.errors.messages)
   end
 
   test 'prevent self dolphin' do
     (user = new_user).save!
     dolphin = new_dolphin(from: user, to: user)
     assert_predicate dolphin, :invalid?
-    assert_equal({from: ['cannot dolphin yourself']}, dolphin.errors.messages)
+    assert_equal({ from: ['cannot dolphin yourself'] }, dolphin.errors.messages)
   end
 
   test 'self.top has invalid parameters' do
-    [nil, :foo, '', 'foo', :'foo', 1, [], {}].each do |arg|
+    [nil, :foo, '', 'foo', :foo, 1, [], {}].each do |arg|
       assert_raises(ArgumentError) { Dolphin.top(by: arg) }
     end
   end
@@ -71,7 +72,7 @@ class DolphinTest < ActiveSupport::TestCase
       users << user
     end
 
-    u1_time = Time.zone.now() - 3600
+    u1_time = Time.zone.now - 3600
 
     # Send an equal number of dolphins from each user
     2.upto(3) do |i|
@@ -103,7 +104,7 @@ class DolphinTest < ActiveSupport::TestCase
       users << user
     end
 
-    u1_time = Time.zone.now() - 3600
+    u1_time = Time.zone.now - 3600
 
     # Send an equal number of dolphins from each user
     2.upto(3) do |i|

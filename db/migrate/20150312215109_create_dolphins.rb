@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDolphins < ActiveRecord::Migration
   def change
     create_table :dolphins do |t|

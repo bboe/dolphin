@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthenticatedController < ApplicationController
   before_action do
     unless user_signed_in?

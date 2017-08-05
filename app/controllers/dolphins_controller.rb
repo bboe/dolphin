@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DolphinsController < AuthenticatedController
   def index
     load_index_variables params
@@ -9,8 +11,8 @@ class DolphinsController < AuthenticatedController
 
     @dolphin = Dolphin.new(from: from, to: current_user, source: ip)
     if @dolphin.save
-      redirect_to({action: :index},
-        notice: "You were dolphined by #{from.name}! To lock your macbook press ctrl+shift+eject.")
+      redirect_to({ action: :index },
+                  notice: "You were dolphined by #{from.name}! To lock your macbook press ctrl+shift+eject.")
     else
       flash.now[:alert] = @dolphin.errors[:from].first
       @dolphin.from = nil
@@ -21,7 +23,7 @@ class DolphinsController < AuthenticatedController
 
   private
 
-  def load_index_variables params={}
+  def load_index_variables(params = {})
     query = Dolphin.includes(:from, :to).order('created_at desc')
 
     if params[:filter]
@@ -39,7 +41,7 @@ class DolphinsController < AuthenticatedController
   end
 
   def domained_email(email)
-    if (domain = Rails.configuration.google_client_domain) and !email.include?('@')
+    if (domain = Rails.configuration.google_client_domain) && !email.include?('@')
       email += "@#{domain}"
     end
     email

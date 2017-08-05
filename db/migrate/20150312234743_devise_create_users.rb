@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DeviseCreateUsers < ActiveRecord::Migration
   def change
     create_table(:users) do |t|
@@ -13,7 +15,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :users, [:provider, :uid], unique: true
+    add_index :users, %i[provider uid], unique: true
     add_index :users, :email, unique: true
   end
 end

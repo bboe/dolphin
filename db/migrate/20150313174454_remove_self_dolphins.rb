@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveSelfDolphins < ActiveRecord::Migration
   def change
     execute <<-SQL

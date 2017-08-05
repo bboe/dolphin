@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
@@ -6,7 +8,7 @@ class UserTest < ActiveSupport::TestCase
 
     user = new_user(uid: '02')
     assert_predicate user, :invalid?
-    assert_equal({email: ["has already been taken"]}, user.errors.messages)
+    assert_equal({ email: ['has already been taken'] }, user.errors.messages)
   end
 
   test 'user fails to save with duplicate provider and uid' do
@@ -21,7 +23,7 @@ class UserTest < ActiveSupport::TestCase
     [nil, ''].each do |value|
       user = new_user(email: value)
       assert_predicate user, :invalid?
-      assert_equal({email: ["can't be blank"]}, user.errors.messages)
+      assert_equal({ email: ["can't be blank"] }, user.errors.messages)
     end
   end
 
@@ -29,7 +31,7 @@ class UserTest < ActiveSupport::TestCase
     [nil, ''].each do |value|
       user = new_user(image_url: value)
       assert_predicate user, :invalid?
-      assert_equal({image_url: ["can't be blank"]}, user.errors.messages)
+      assert_equal({ image_url: ["can't be blank"] }, user.errors.messages)
     end
   end
 
@@ -37,7 +39,7 @@ class UserTest < ActiveSupport::TestCase
     [nil, ''].each do |value|
       user = new_user(name: value)
       assert_predicate user, :invalid?
-      assert_equal({name: ["can't be blank"]}, user.errors.messages)
+      assert_equal({ name: ["can't be blank"] }, user.errors.messages)
     end
   end
 
@@ -45,7 +47,7 @@ class UserTest < ActiveSupport::TestCase
     [nil, ''].each do |value|
       user = new_user(provider: value)
       assert_predicate user, :invalid?
-      assert_equal({provider: ["can't be blank"]}, user.errors.messages)
+      assert_equal({ provider: ["can't be blank"] }, user.errors.messages)
     end
   end
 
@@ -53,10 +55,9 @@ class UserTest < ActiveSupport::TestCase
     [nil, ''].each do |value|
       user = new_user(uid: value)
       assert_predicate user, :invalid?
-      assert_equal({uid: ["can't be blank"]}, user.errors.messages)
+      assert_equal({ uid: ["can't be blank"] }, user.errors.messages)
     end
   end
-
 
   test 'user saves when valid' do
     assert_predicate new_user, :valid?

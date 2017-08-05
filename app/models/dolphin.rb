@@ -1,16 +1,18 @@
-class Dolphin < ActiveRecord::Base
+# frozen_string_literal: true
+
+class Dolphin < ApplicationRecord
   belongs_to :from, class_name: :User, counter_cache: :from_count
   belongs_to :to, class_name: :User, counter_cache: :to_count
 
-  validates_presence_of :from, :to, message: 'invalid user'
-  validates_presence_of :source
+  validates :from, :to, presence: { message: 'invalid user' }
+  validates :source, presence: true
 
   validate :dolphin_yourself
   validate :dolphin_timelimit
 
   def self.top(by:, limit: 8)
-    unless [:from, :to].include?(by.try(:to_sym))
-      raise ArgumentError.new('invalid `by` parameter')
+    unless %i[from to].include?(by.try(:to_sym))
+      raise ArgumentError, 'invalid `by` parameter'
     end
 
     query = User.where("#{by}_count > 0")
@@ -29,7 +31,7 @@ class Dolphin < ActiveRecord::Base
   def dolphin_timelimit
     if (dolphin = Dolphin.where(to_id: to_id).where("created_at > now() - interval '10 minutes'").first)
       errors.add(:from,
-        "#{to.name} was dolphined within the last 10 minutes by #{dolphin.from.name}. Please log #{to.name} out (ctrl+shift+eject on OS X).")
+                 "#{to.name} was dolphined within the last 10 minutes by #{dolphin.from.name}. Please log #{to.name} out (ctrl+shift+eject on OS X).")
     end
   end
 
