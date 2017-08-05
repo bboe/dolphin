@@ -39,7 +39,7 @@ class DolphinsController < AuthenticatedController
   end
 
   def domained_email(email)
-    if (domain = ENV['GOOGLE_CLIENT_DOMAIN']) and !email.include?('@')
+    if (domain = Rails.configuration.google_client_domain) and !email.include?('@')
       email += "@#{domain}"
     end
     email

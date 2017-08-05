@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :dolphins_received, class_name: :Dolphin, foreign_key: :to_id
 
   def self.find_for_google_oauth2(access_token)
-    if ENV["GOOGLE_CLIENT_DOMAIN"] && ENV["GOOGLE_CLIENT_DOMAIN"] != access_token.extra.raw_info.hd
+    if config.google_client_domain != access_token.extra.raw_info.hd
       return
     end
 

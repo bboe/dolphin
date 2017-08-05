@@ -14,5 +14,8 @@ module DolphinApp
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    config.app_title = ENV['APP_TITLE']
+    config.google_client_domain = ENV['GOOGLE_CLIENT_DOMAIN']
   end
 end
