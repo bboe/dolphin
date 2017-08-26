@@ -66,7 +66,7 @@ class OmniAuthCallbacksControllerTest < ActionDispatch::IntegrationTest
   def mock_omniauth(domain: 'test')
     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
       extra: { raw_info: { picture: '//' } },
-      info: { email: "a@#{domain}", image: 'a', name: 'a' },
+      info: { email: "a@#{domain}", name: 'a' },
       provider: 'test',
       uid: '0'
     )

@@ -30,7 +30,7 @@ module Users
       info_args = {
         name: access_token.info.name,
         email: access_token.info.email,
-        image_url: access_token.info.image
+        image_url: access_token.extra.raw_info.picture
       }
 
       if (user = User.find_by(**id_args))
