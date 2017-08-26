@@ -12,7 +12,9 @@ class DolphinTest < ActiveSupport::TestCase
 
     dolphin = new_dolphin(from: user3, to: user1)
     assert_predicate dolphin, :invalid?
-    assert_equal({ from: ['Test User was dolphined within the last 10 minutes by Test User. Please log Test User out (ctrl+shift+eject on OS X).'] }, dolphin.errors.messages)
+    message = 'Test User was dolphined within the last 10 minutes by Test '\
+              'User. Please log Test User out (ctrl+shift+eject on OS X).'
+    assert_equal({ from: [message] }, dolphin.errors.messages)
   end
 
   test 'presence of from' do

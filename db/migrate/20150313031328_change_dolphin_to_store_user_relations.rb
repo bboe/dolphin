@@ -9,8 +9,8 @@ class ChangeDolphinToStoreUserRelations < ActiveRecord::Migration
     remove_column :dolphins, :from, :string, null: false
     remove_column :dolphins, :to, :string, null: false
 
-    add_reference :dolphins, :from, index: true, null: false
-    add_reference :dolphins, :to, index: true, null: false
+    add_reference :dolphins, :from, index: true, null: false, default: 1
+    add_reference :dolphins, :to, index: true, null: false, default: 1
 
     add_foreign_key :dolphins, :users, column: :from_id
     add_foreign_key :dolphins, :users, column: :to_id

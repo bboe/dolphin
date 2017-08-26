@@ -18,21 +18,21 @@ class Dolphin < ApplicationRecord
     query = User.where("#{by}_count > 0")
 
     if by == :from
-      query = query.order(from_count: :desc, to_count: :asc, updated_at: :asc)
+      query.order(from_count: :desc, to_count: :asc, updated_at: :asc)
     else
-      query = query.order(to_count: :desc, from_count: :asc, updated_at: :asc)
-    end
-
-    query.limit(limit)
+      query.order(to_count: :desc, from_count: :asc, updated_at: :asc)
+    end.limit(limit)
   end
 
   private
 
   def dolphin_timelimit
-    if (dolphin = Dolphin.where(to_id: to_id).where("created_at > now() - interval '10 minutes'").first)
-      errors.add(:from,
-                 "#{to.name} was dolphined within the last 10 minutes by #{dolphin.from.name}. Please log #{to.name} out (ctrl+shift+eject on OS X).")
-    end
+    dolphin = Dolphin.where(to_id: to_id).where("created_at > now() - interval '10 minutes'").first
+    return unless dolphin
+    message = "#{to.name} was dolphined within the last 10 minutes by "\
+              "#{dolphin.from.name}. Please log #{to.name} out "\
+              '(ctrl+shift+eject on OS X).'
+    errors.add(:from, message)
   end
 
   def dolphin_yourself

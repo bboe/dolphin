@@ -21,7 +21,7 @@ module ActiveSupport
                   updated_at: updated_at)
     end
 
-    def new_user(email: 'test@test', name: 'Test User', image_url: '.',
+    def new_user(email: 'test@test', name: 'Test User', image_url: '/',
                  provider: 'test', uid: '0')
       User.new(email: email, name: name, image_url: image_url, provider: provider,
                uid: uid)
