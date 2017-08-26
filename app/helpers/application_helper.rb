@@ -5,6 +5,6 @@ module ApplicationHelper
 
   def display_user(user)
     path = user.image_url == STOCK_IMAGE_URL ? image_path('dolphin.png') : user.image_url
-    "#{image_tag(path)} #{user.name}"
+    safe_join([image_tag(path), user.name])
   end
 end
