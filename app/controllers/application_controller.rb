@@ -6,10 +6,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   force_ssl if: :ssl_configured?
 
-  rescue_from ActionView::MissingTemplate do
-    # RAILS5TODO: Remove this rescue when upgrading to rails5.
-    raise unless Rails.env.production?
-    render nothing: true, status: :not_acceptable
+  def ip_address
+    request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
   end
 
   def ssl_configured?

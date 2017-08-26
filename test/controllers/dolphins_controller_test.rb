@@ -23,7 +23,7 @@ class DolphinsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference('Dolphin.count') do
       post dolphins_path, params: { dolphin: { source: 'Test', from: other_user.email } }
-      assert_redirected_to dolphins_path
+      assert_redirected_to root_path
     end
 
     dolphin = Dolphin.last
@@ -34,11 +34,10 @@ class DolphinsControllerTest < ActionDispatch::IntegrationTest
   test 'should create dolphin via domained email' do
     authenticated_user = login
     (other_user = new_user(email: 'user2@test', uid: '2')).save!
-    Rails.configuration.google_client_domain = 'test'
 
     assert_difference('Dolphin.count') do
       post dolphins_path, params: { dolphin: { source: 'Test', from: 'user2' } }
-      assert_redirected_to dolphins_path
+      assert_redirected_to root_path
     end
 
     dolphin = Dolphin.last
