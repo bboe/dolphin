@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ChangeDolphinToStoreUserRelations < ActiveRecord::Migration
+class ChangeDolphinToStoreUserRelations < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up { execute('TRUNCATE dolphins') }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateDolphins < ActiveRecord::Migration
+class CreateDolphins < ActiveRecord::Migration[4.2]
   def change
     create_table :dolphins do |t|
       t.string :from, null: false

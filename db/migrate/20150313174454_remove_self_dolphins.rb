@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RemoveSelfDolphins < ActiveRecord::Migration
+class RemoveSelfDolphins < ActiveRecord::Migration[4.2]
   def down; end
 
   def up
