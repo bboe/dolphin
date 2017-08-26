@@ -54,4 +54,4 @@ gem 'mocha', group: :test
 gem 'omniauth-google-oauth2', '~> 0.2.6'
 gem 'will_paginate', '~> 3.0.6'
 
-ruby '2.3.4'
+ruby '2.4.1'
