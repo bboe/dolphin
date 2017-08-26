@@ -14,7 +14,7 @@ class OmniAuthCallbacksControllerTest < ActionDispatch::IntegrationTest
         get user_google_oauth2_omniauth_callback_path
       end
       assert_redirected_to root_path
-      assert_equal 'Successfully authenticated from Google account.', flash['notice']
+      assert_equal 'Successfully authenticated from test account.', flash['notice']
     ensure
       Rails.configuration.google_client_domain_list = previous_setting
     end
@@ -33,7 +33,7 @@ class OmniAuthCallbacksControllerTest < ActionDispatch::IntegrationTest
       get user_google_oauth2_omniauth_callback_path
     end
     assert_redirected_to root_path
-    assert_equal 'Successfully authenticated from Google account.', flash['notice']
+    assert_equal 'Successfully authenticated from test account.', flash['notice']
 
     user.reload
     assert_not_equal previous_email, user.email
@@ -48,11 +48,11 @@ class OmniAuthCallbacksControllerTest < ActionDispatch::IntegrationTest
       get user_google_oauth2_omniauth_callback_path
     end
     assert_redirected_to root_path
-    assert_equal 'Successfully authenticated from Google account.', flash['notice']
+    assert_equal 'Successfully authenticated from test account.', flash['notice']
   end
 
   test 'should get google_oauth2 callback with invalid domain' do
-    mock_omniauth(hd: 'invalid')
+    mock_omniauth(domain: 'invalid')
 
     assert_no_difference 'User.count' do
       get user_google_oauth2_omniauth_callback_path
@@ -63,10 +63,10 @@ class OmniAuthCallbacksControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-  def mock_omniauth(hd: 'test')
+  def mock_omniauth(domain: 'test')
     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
-      extra: { raw_info: { hd: hd } },
-      info: { email: 'a@a', image: 'a', name: 'a' },
+      extra: { raw_info: { picture: '//' } },
+      info: { email: "a@#{domain}", image: 'a', name: 'a' },
       provider: 'test',
       uid: '0'
     )

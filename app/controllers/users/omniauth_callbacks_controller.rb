@@ -11,15 +11,15 @@ module Users
     def google_oauth2
       access_token = request.env['omniauth.auth']
       domain_list = Rails.configuration.google_client_domain_list
-
-      if domain_list.present? && !domain_list.include?(access_token.extra.raw_info.hd)
+      domain = access_token.info.email.split('@')[1]
+      if domain_list.present? && !domain_list.include?(domain)
         redirect_to FAILURE_PATH
         return
       end
 
       user = create_or_update_user(access_token)
       flash[:notice] = I18n.t('devise.omniauth_callbacks.success',
-                              kind: 'Google')
+                              kind: domain)
       sign_in_and_redirect user, event: :authentication
     end
 
