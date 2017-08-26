@@ -11,7 +11,7 @@ module ActiveSupport
     fixtures :all
 
     OmniAuth.config.test_mode = true
-    Rails.configuration.google_client_domain = 'test'
+    Rails.configuration.google_client_domain_list = %w[test]
 
     def new_dolphin(from: :default, to: :default, source: 'Test',
                     created_at: nil, updated_at: nil)

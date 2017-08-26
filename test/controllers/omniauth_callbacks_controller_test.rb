@@ -3,6 +3,24 @@
 require 'test_helper'
 
 class OmniAuthCallbacksControllerTest < ActionDispatch::IntegrationTest
+  test 'should get google_oauth2 callback when allowing all domains' do
+    mock_omniauth
+
+    begin
+      previous_setting = Rails.configuration.google_client_domain_list
+      Rails.configuration.google_client_domain_list = []
+
+      assert_difference 'User.count' do
+        get user_google_oauth2_omniauth_callback_path
+      end
+      assert_redirected_to root_path
+      assert_equal 'Successfully authenticated from Google account.', flash['notice']
+    ensure
+      Rails.configuration.google_client_domain_list = previous_setting
+    end
+  end
+
+
   test 'should get google_oauth2 callback with existing user' do
     mock_omniauth
     (user = new_user).save!

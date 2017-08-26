@@ -236,7 +236,7 @@ Devise.setup do |config|
   config.omniauth(:google_oauth2,
                   ENV['GOOGLE_CLIENT_ID'],
                   ENV['GOOGLE_CLIENT_SECRET'],
-                  hd: ENV['GOOGLE_CLIENT_DOMAIN'] || nil)
+                  hd: ENV.fetch('GOOGLE_CLIENT_DOMAIN', '').split)
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

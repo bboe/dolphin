@@ -24,10 +24,9 @@ class DolphinsController < AuthenticatedController
   private
 
   def domained_email(email)
-    if (domain = Rails.configuration.google_client_domain) && !email.include?('@')
-      email += "@#{domain}"
-    end
-    email
+    return email if email.include?('@') || Rails.configuration.google_client_domain_list.length != 1
+    domain = Rails.configuration.google_client_domain_list.first
+    "#{email}@#{domain}"
   end
 
   def load_index_variables(params: {})
