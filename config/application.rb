@@ -18,6 +18,6 @@ module DolphinApp
     # -- all .rb files in that directory are automatically loaded.
 
     config.app_title = ENV['APP_TITLE']
-    config.google_client_domain = ENV['GOOGLE_CLIENT_DOMAIN']
+    config.google_client_domain_list = ENV.fetch('GOOGLE_CLIENT_DOMAIN', '').split
   end
 end
