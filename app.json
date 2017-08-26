@@ -6,7 +6,7 @@
   "env": {
     "APP_TITLE": "Dolphin-Stage",
     "GOOGLE_CLIENT_DOMAIN": {
-      "required": true
+      "required": false
     },
     "GOOGLE_CLIENT_ID": {
       "required": true
