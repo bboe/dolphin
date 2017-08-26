@@ -6,7 +6,7 @@
 <p><span class="bold">Note</span>: You will need visit this web
    service yourself before you can dolphin someone.</p>
 
-<%= form_for(@dolphin ||= Dolphin.new) do |f| %>
+<%= form_for(@dolphin || Dolphin.new) do |f| %>
   <%= f.label :from, value: 'Your Email' %>
   <%= f.text_field :from, autofocus: true %>
   <%= f.submit 'Dolphin!' %>

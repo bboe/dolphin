@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20150317193151) do
     t.string "source", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "from_id", default: 1, null: false
-    t.integer "to_id", default: 1, null: false
+    t.integer "from_id", null: false
+    t.integer "to_id", null: false
     t.index ["created_at"], name: "index_dolphins_on_created_at"
     t.index ["from_id"], name: "index_dolphins_on_from_id"
     t.index ["to_id"], name: "index_dolphins_on_to_id"

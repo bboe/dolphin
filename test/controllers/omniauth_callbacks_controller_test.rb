@@ -20,7 +20,6 @@ class OmniAuthCallbacksControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-
   test 'should get google_oauth2 callback with existing user' do
     mock_omniauth
     (user = new_user).save!
