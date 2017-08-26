@@ -3,6 +3,20 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  test 'user fails to save with blank nickname' do
+    user = new_user(nickname: '')
+    assert_predicate user, :invalid?
+    assert_equal({ nickname: ["can't be blank"] }, user.errors.messages)
+  end
+
+  test 'user fails to save with duplicate nickname' do
+    new_user(nickname: 'a').save!
+
+    user = new_user(email: 'b', nickname: 'a', uid: '2')
+    assert_predicate user, :invalid?
+    assert_equal({ nickname: ['has already been taken'] }, user.errors.messages)
+  end
+
   test 'user fails to save with duplicate email' do
     new_user.save!
 

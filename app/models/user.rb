@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   validates :email, :name, :image_url, :provider, :uid, presence: true
   validates :email, uniqueness: true
+  validates :nickname, allow_nil: true, presence: true, uniqueness: true
   validates :uid, uniqueness: { scope: :provider }
 
   has_many :dolphins_sent, class_name: :Dolphin, foreign_key: :from_id
