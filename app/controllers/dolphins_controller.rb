@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 class DolphinsController < AuthenticatedController
+  before_action :check_params, only: :create
+
   def index
     load_index_variables(params: params)
   end
 
   def create
     from = User.find_by(email: domained_email(params[:dolphin][:from]))
+    from ||= User.find_by(nickname: params[:dolphin][:from])
 
     @dolphin = Dolphin.new(from: from, to: current_user, source: ip_address)
     if @dolphin.save
@@ -22,6 +25,12 @@ class DolphinsController < AuthenticatedController
   end
 
   private
+
+  def check_params
+    return unless params[:dolphin][:from].nil?
+    load_index_variables
+    render :index, status: :unprocessable_entity
+  end
 
   def domained_email(email)
     return email if email.include?('@') || Rails.configuration.google_client_domain_list.length != 1
