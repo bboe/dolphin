@@ -9,6 +9,9 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  OmniAuth.config.test_mode = true
+  Rails.configuration.google_client_domain = 'test'
+
   def new_dolphin(from: :default, to: :default, source: 'Test',
                   created_at: nil, updated_at: nil)
     from = new_user if from == :default
