@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 
 class OmniAuthCallbacksControllerTest < ActionDispatch::IntegrationTest
@@ -45,11 +46,11 @@ class OmniAuthCallbacksControllerTest < ActionDispatch::IntegrationTest
   private
 
   def mock_omniauth(hd: 'test')
-    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
-        extra: { raw_info: { hd: hd } },
-        info: { email: 'a@a', image: 'a', name: 'a' },
-        provider: 'test',
-        uid: '0'
-      })
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
+      extra: { raw_info: { hd: hd } },
+      info: { email: 'a@a', image: 'a', name: 'a' },
+      provider: 'test',
+      uid: '0'
+    )
   end
 end

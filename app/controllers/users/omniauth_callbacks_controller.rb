@@ -4,6 +4,10 @@ module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     FAILURE_PATH = 'https://www.google.com'
 
+    def after_omniauth_failure_path_for(_scope)
+      FAILURE_PATH
+    end
+
     def google_oauth2
       access_token = request.env['omniauth.auth']
       if Rails.configuration.google_client_domain != access_token.extra.raw_info.hd
@@ -11,6 +15,15 @@ module Users
         return
       end
 
+      user = create_or_update_user(access_token)
+      flash[:notice] = I18n.t('devise.omniauth_callbacks.success',
+                              kind: 'Google')
+      sign_in_and_redirect user, event: :authentication
+    end
+
+    private
+
+    def create_or_update_user(access_token)
       id_args = { provider: access_token.provider, uid: access_token.uid }
       info_args = {
         name: access_token.info.name,
@@ -18,19 +31,12 @@ module Users
         image_url: access_token.info.image
       }
 
-      if user = User.find_by(**id_args)
+      if (user = User.find_by(**id_args))
         user.update_attributes(**info_args)
       else
         user = User.create!(**info_args.merge!(id_args))
       end
-
-      flash[:notice] = I18n.t('devise.omniauth_callbacks.success',
-                              kind: 'Google')
-      sign_in_and_redirect user, event: :authentication
-    end
-
-    def after_omniauth_failure_path_for(_scope)
-      FAILURE_PATH
+      user
     end
   end
 end
