@@ -21,10 +21,10 @@ module ActiveSupport
                   updated_at: updated_at)
     end
 
-    def new_user(email: 'test@test', name: 'Test User', image_url: '/',
-                 provider: 'test', uid: '0')
-      User.new(email: email, name: name, image_url: image_url, provider: provider,
-               uid: uid)
+    def new_user(email: 'test@test', image_url: '/', name: 'Test User',
+                 nickname: nil, provider: 'test', uid: '0')
+      User.new(email: email, image_url: image_url, name: name,
+               nickname: nickname, provider: provider, uid: uid)
     end
   end
 end
