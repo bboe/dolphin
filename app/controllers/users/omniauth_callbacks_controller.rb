@@ -10,7 +10,9 @@ module Users
 
     def google_oauth2
       access_token = request.env['omniauth.auth']
-      unless Rails.configuration.google_client_domain_list.include?(access_token.extra.raw_info.hd)
+      domain_list = Rails.configuration.google_client_domain_list
+
+      if domain_list.present? && !domain_list.include?(access_token.extra.raw_info.hd)
         redirect_to FAILURE_PATH
         return
       end
