@@ -11,7 +11,7 @@ class DolphinsController < AuthenticatedController
 
     @dolphin = Dolphin.new(from: from, to: current_user, source: ip)
     if @dolphin.save
-      redirect_to({ action: :index },
+      redirect_to(root_path,
                   notice: "You were dolphined by #{from.name}! To lock your macbook press ctrl+shift+eject.")
     else
       flash.now[:alert] = @dolphin.errors[:from].first
