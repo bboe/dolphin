@@ -29,6 +29,7 @@ set up, and the repository cloned.
 
   * Add `https://APPNAME.herokuapp.com/users/auth/google_oauth2/callback` to
     the list of __Authorized Redirect URIs__
+    * __Note:__ You must enable the "__Contacts API__" and "__Google+ API__" via the Google API console.
 
 * Configure the heroku envioronment
 
