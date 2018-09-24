@@ -8,6 +8,6 @@ class User < ApplicationRecord
   validates :nickname, allow_nil: true, presence: true, uniqueness: true
   validates :uid, uniqueness: { scope: :provider }
 
-  has_many :dolphins_sent, class_name: :Dolphin, foreign_key: :from_id
-  has_many :dolphins_received, class_name: :Dolphin, foreign_key: :to_id
+  has_many :dolphins_sent, class_name: :Dolphin, dependent: :destroy, foreign_key: :from_id
+  has_many :dolphins_received, class_name: :Dolphin, dependent: :destroy, foreign_key: :to_id
 end

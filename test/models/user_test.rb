@@ -3,6 +3,22 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  test 'user destroys when has been dolphined' do
+    (user1 = new_user).save!
+    (user2 = new_user(email: 'user2@test', uid: 2)).save!
+    new_dolphin(from: user2, to: user1).save!
+
+    assert_predicate user1, :destroy
+  end
+
+  test 'user destroys when has dolphined' do
+    (user1 = new_user).save!
+    (user2 = new_user(email: 'user2@test', uid: 2)).save!
+    new_dolphin(from: user2, to: user1).save!
+
+    assert_predicate user2, :destroy
+  end
+
   test 'user fails to save with blank nickname' do
     user = new_user(nickname: '')
     assert_predicate user, :invalid?
