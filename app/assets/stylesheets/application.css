@@ -29,3 +29,8 @@
  .no-pad {
     padding: 0 !important;
 }
+
+.user-image {
+    height: 50px;
+    width: 50px;
+}
