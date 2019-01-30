@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 if Rails.env.production?
-  Rack::Timeout.timeout = 5 # seconds
+  Rails.application.config.middleware.insert_before Rack::Runtime, Rack::Timeout, service_timeout: 5
 end
