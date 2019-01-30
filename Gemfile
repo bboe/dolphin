@@ -50,8 +50,9 @@ end
 
 # Manually added
 gem 'devise'
+gem 'minitest-ci', group: :test
 gem 'mocha', group: :test
 gem 'omniauth-google-oauth2', '~> 0.6'
 gem 'will_paginate', '~> 3.0.6'
 
-ruby '2.4.1'
+ruby '2.4.2'
