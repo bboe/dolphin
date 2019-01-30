@@ -18,13 +18,13 @@ jobs:
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
-      - run:
-          name: Which bundler?
-          command: bundle -v
       - restore_cache:
           keys:
             - dolphin-bundle-v1-{{ checksum "Gemfile.lock" }}
             - dolphin-bundle-v1-
+      - run:
+          name: Update bundler
+          command: gem install bundler -v 1.17.3
       - run:
           name: Bundle Install
           command: bundle check || bundle install
