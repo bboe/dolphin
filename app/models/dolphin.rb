@@ -11,9 +11,7 @@ class Dolphin < ApplicationRecord
   validate :dolphin_timelimit
 
   def self.top(by:, limit: 8)
-    unless %i[from to].include?(by.try(:to_sym))
-      raise ArgumentError, 'invalid `by` parameter'
-    end
+    raise ArgumentError, 'invalid `by` parameter' unless %i[from to].include?(by.try(:to_sym))
 
     query = User.where("#{by}_count > 0")
 
@@ -29,6 +27,7 @@ class Dolphin < ApplicationRecord
   def dolphin_timelimit
     dolphin = Dolphin.where(to_id: to_id).where("created_at > now() - interval '10 minutes'").first
     return unless dolphin
+
     message = "#{to.name} was dolphined within the last 10 minutes by "\
               "#{dolphin.from.name}. Please log #{to.name} out "\
               '(ctrl+shift+eject on OS X).'

@@ -7,12 +7,6 @@ AllCops:
     - 'vendor/**/*'
   TargetRubyVersion: 2.3
 
-Layout/IndentArray:
-  EnforcedStyle: consistent
-
-Layout/IndentHash:
-  EnforcedStyle: consistent
-
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 

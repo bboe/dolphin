@@ -28,12 +28,14 @@ class DolphinsController < AuthenticatedController
 
   def check_params
     return unless params[:dolphin][:from].nil?
+
     load_index_variables
     render :index, status: :unprocessable_entity
   end
 
   def domained_email(email)
     return email if email.include?('@') || Rails.configuration.google_client_domain_list.length != 1
+
     domain = Rails.configuration.google_client_domain_list.first
     "#{email}@#{domain}"
   end
