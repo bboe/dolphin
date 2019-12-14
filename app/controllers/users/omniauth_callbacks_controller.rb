@@ -34,7 +34,7 @@ module Users
       }
 
       if (user = User.find_by(**id_args))
-        user.update_attributes(**info_args)
+        user.update(**info_args)
       else
         user = User.create!(**info_args.merge!(id_args))
       end
