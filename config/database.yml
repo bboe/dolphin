@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: dolphin_production
-  username: dolphin
-  password: <%= ENV['DOLPHIN_DATABASE_PASSWORD'] %>
+  database: dolphin
