@@ -17,7 +17,7 @@ module DolphinApp
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.app_title = ENV['APP_TITLE']
+    config.app_title = ENV['APP_TITLE'] || "Dolphin"
     config.google_client_domain_list = ENV.fetch('GOOGLE_CLIENT_DOMAIN', '').split
   end
 end
