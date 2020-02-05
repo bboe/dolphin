@@ -19,7 +19,7 @@
       <tbody>
         <% @dolphins.each do |dolphin| %>
           <tr>
-            <td><%= dolphin.created_at %></td>
+            <td><%= dolphin.created_at.in_time_zone("America/Los_Angeles") %></td>
             <td><%= display_user(dolphin.to) %></td>
             <td><%= display_user(dolphin.from) %></td>
           </tr>
