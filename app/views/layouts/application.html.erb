@@ -16,6 +16,7 @@
 <body>
 
 <%= render 'layouts/navigation' %>
+<%= render 'layouts/double_dolphin' if Rails.configuration.double_dolphin %>
 <%= render 'layouts/alerts' %>
 <%= render 'dolphins/new' %>
 

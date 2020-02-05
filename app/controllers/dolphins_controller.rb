@@ -13,6 +13,7 @@ class DolphinsController < AuthenticatedController
 
     @dolphin = Dolphin.new(from: from, to: current_user, source: ip_address)
     if @dolphin.save
+      Dolphin.new(from: from, to: current_user, source: ip_address).save(validate: false) if Rails.configuration.double_dolphin
       redirect_to(root_path,
                   notice: "You were dolphined by #{from.name}! To lock your macbook press ctrl+shift+eject.")
       return
