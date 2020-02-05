@@ -21,5 +21,6 @@ users = Array.new(User.all)
   to = users.sample
   from = nil
   from = users.sample until from.present? && from != to
-  Dolphin.create!(from: from, to: to, source: 'Test')
+  dolphin = Dolphin.new(from: from, to: to, source: 'Test')
+  dolphin.save!(validate: false)
 end
