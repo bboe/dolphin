@@ -19,6 +19,6 @@ module DolphinApp
 
     config.app_title = ENV['APP_TITLE'] || "Dolphin"
     config.google_client_domain_list = ENV.fetch('GOOGLE_CLIENT_DOMAIN', '').split
-    config.double_dolphin = true
+    config.double_dolphin = false
   end
 end
