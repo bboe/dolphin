@@ -17,6 +17,11 @@ module Users
         return
       end
 
+      if BlacklistedEmail.find_by(email: access_token.info.email)
+        redirect_to blacklisted_path
+        return
+      end
+
       user = create_or_update_user(access_token)
       flash[:notice] = I18n.t('devise.omniauth_callbacks.success',
                               kind: domain)

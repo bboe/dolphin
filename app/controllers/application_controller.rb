@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  def blacklisted
+    render 'blacklisted', layout: false
+  end
+
   def ip_address
     request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
   end
