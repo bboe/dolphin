@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   devise_for(:users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' })
 
+  get 'blacklisted', to: 'application#blacklisted'
+
   resources :dolphins, only: :create
 
   root 'dolphins#index'
