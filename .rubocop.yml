@@ -1,3 +1,6 @@
+plugins:
+  - rubocop-rails
+
 AllCops:
   Exclude:
     - 'bin/**/*'
@@ -5,19 +8,17 @@ AllCops:
     - 'log/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 3.4
+  NewCops: disable
+
+Layout/LineLength:
+  Max: 120
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Metrics/LineLength:
-  Max: 120
-
 Metrics/MethodLength:
   Max: 16
-
-Rails:
-  Enabled: true
 
 Style/Documentation:
   Enabled: false

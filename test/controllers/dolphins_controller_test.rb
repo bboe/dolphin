@@ -14,7 +14,7 @@ class DolphinsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get index when not logged in' do
     get root_path
-    assert_redirected_to user_google_oauth2_omniauth_authorize_path
+    assert_redirected_to login_path
   end
 
   test 'should create dolphin' do
@@ -82,7 +82,7 @@ class DolphinsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not create dolphin when not logged in' do
     get root_path
-    assert_redirected_to user_google_oauth2_omniauth_authorize_path
+    assert_redirected_to login_path
   end
 
   private
@@ -90,7 +90,7 @@ class DolphinsControllerTest < ActionDispatch::IntegrationTest
   def login
     user = new_user
     user.save!
-    sign_in user
+    sign_in user, scope: :user
     user
   end
 end
