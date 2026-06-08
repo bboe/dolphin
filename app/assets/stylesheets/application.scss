@@ -1,0 +1,23 @@
+// Scaffolding styles first so the app-wide rules below win the cascade.
+@use "scaffolds";
+
+.bold {
+  font-weight: bold;
+}
+
+.field_with_errors {
+  display: inline;
+}
+
+.inline {
+  display: inline !important;
+}
+
+.no-pad {
+  padding: 0 !important;
+}
+
+.user-image {
+  height: 50px;
+  width: 50px;
+}

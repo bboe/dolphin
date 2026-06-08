@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
     render 'blacklisted', layout: false
   end
 
+  def login
+    redirect_to root_path if user_signed_in?
+    render 'login', layout: false
+  end
+
   def ip_address
     request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
   end

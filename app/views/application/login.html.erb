@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <title><%= Rails.configuration.app_title %></title>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'dolphin.png' %>
+  <!-- dolphin.png By Google (https://code.google.com/p/noto/) [Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)], via Wikimedia Commons -->
+</head>
+<body class="bg-dark">
+
+  <div class="align-items-center container d-flex justify-content-center vh-100">
+    <div class="text-center text-white">
+      <%= image_tag('dolphin.png', alt: Rails.configuration.app_title) %>
+      <h1><%= Rails.configuration.app_title %></h1>
+      <p>Sign in to encourage your coworkers to lock their computers.</p>
+      <%= button_to 'Sign in with Google', user_google_oauth2_omniauth_authorize_path, method: :post, class: 'btn btn-light btn-lg' %>
+    </div>
+  </div>
+</body>
+</html>

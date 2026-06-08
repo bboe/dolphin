@@ -13,7 +13,7 @@ module Users
       domain_list = Rails.configuration.google_client_domain_list
       domain = access_token.info.email.split('@')[1]
       if domain_list.present? && !domain_list.include?(domain)
-        redirect_to FAILURE_PATH
+        redirect_to FAILURE_PATH, allow_other_host: true
         return
       end
 

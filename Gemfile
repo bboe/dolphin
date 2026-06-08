@@ -2,38 +2,45 @@
 
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
-  "https://github.com/#{repo_name}.git"
-end
+ruby '3.4.1'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
-# Use postgresql as the database for Active Record
+# Rails framework
+gem 'rails', '~> 8.0'
+
+# Drivers / server
 gem 'pg'
-# Use Puma as the app server
-gem 'puma'
-# Use SCSS for stylesheets
-gem 'sass-rails'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'puma', '~> 6.0'
 
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks'
+# Asset pipeline (Propshaft + Hotwire + Dart Sass)
+gem 'dartsass-rails'
+gem 'importmap-rails'
+gem 'propshaft'
+gem 'stimulus-rails'
+gem 'turbo-rails'
+
+# Boot speed
+gem 'bootsnap', require: false
+
+# Authentication
+gem 'devise', '~> 4.9'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+
+# Pagination
+gem 'will_paginate'
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen'
-  gem 'web-console', '>= 3.3.0'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'rubocop'
-  gem 'spring'
-  gem 'spring-watcher-listen'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'web-console'
 end
 
-# Manually added
-gem 'devise'
-gem 'minitest-ci', group: :test
-gem 'mocha', group: :test
-gem 'omniauth-google-oauth2'
-gem 'will_paginate'
+group :development, :test do
+  gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
+end
+
+group :test do
+  gem 'minitest-ci'
+  gem 'mocha'
+end
