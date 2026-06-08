@@ -57,6 +57,7 @@ GEM
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
     ast (2.4.0)
+    base64 (0.3.0)
     bcrypt (3.1.13)
     bindex (0.8.1)
     builder (3.2.4)
@@ -79,7 +80,8 @@ GEM
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
-    jwt (2.2.1)
+    jwt (2.10.3)
+      base64
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
