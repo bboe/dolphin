@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2020_02_18_213348) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_15_160637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -18,6 +18,7 @@ ActiveRecord::Schema[8.1].define(version: 2020_02_18_213348) do
     t.datetime "created_at", null: false
     t.string "email", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_blacklisted_emails_on_email", unique: true
   end
 
   create_table "dolphins", id: :serial, force: :cascade do |t|
