@@ -145,10 +145,6 @@ GEM
       logger
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    importmap-rails (2.2.3)
-      actionpack (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      railties (>= 6.0.0)
     io-console (0.8.2)
     irb (1.18.0)
       pp (>= 0.6.0)
@@ -368,9 +364,6 @@ GEM
     thor (1.5.0)
     timeout (0.6.1)
     tsort (0.2.0)
-    turbo-rails (2.0.23)
-      actionpack (>= 7.1.0)
-      railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.2.0)
@@ -411,7 +404,6 @@ DEPENDENCIES
   dartsass-rails
   debug
   devise (~> 5.0)
-  importmap-rails
   listen
   minitest-ci
   mocha
@@ -423,7 +415,6 @@ DEPENDENCIES
   rails (~> 8.0)
   rubocop
   rubocop-rails
-  turbo-rails
   web-console
   will_paginate
 
@@ -479,7 +470,6 @@ CHECKSUMS
   google-protobuf (4.35.1-x86_64-linux-musl) sha256=91890eb0002934a339fdb7d77a147c46b7474b6799db27872b747b905837f744
   hashie (5.1.0) sha256=c266471896f323c446ea8207f8ffac985d2718df0a0ba98651a3057096ca3870
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
-  importmap-rails (2.2.3) sha256=7101be2a4dc97cf1558fb8f573a718404c5f6bcfe94f304bf1f39e444feeb16a
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
   irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
   json (2.19.9) sha256=9b9025b7cdddafa38d316eca0b2358488e42d417045c1b90d216a9fefe46b79a
@@ -569,7 +559,6 @@ CHECKSUMS
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
   timeout (0.6.1) sha256=78f57368a7e7bbadec56971f78a3f5ecbcfb59b7fcbb0a3ed6ddc08a5094accb
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
-  turbo-rails (2.0.23) sha256=ee0d90733aafff056cf51ff11e803d65e43cae258cc55f6492020ec1f9f9315f
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
   unicode-display_width (3.2.0) sha256=0cdd96b5681a5949cdbc2c55e7b420facae74c4aaf9a9815eee1087cb1853c42
   unicode-emoji (4.2.0) sha256=519e69150f75652e40bf736106cfbc8f0f73aa3fb6a65afe62fefa7f80b0f80f

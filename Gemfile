@@ -11,11 +11,9 @@ gem 'rails', '~> 8.0'
 gem 'pg'
 gem 'puma', '~> 8.0'
 
-# Asset pipeline (Propshaft + Hotwire + Dart Sass)
+# Asset pipeline (Propshaft + Dart Sass)
 gem 'dartsass-rails'
-gem 'importmap-rails'
 gem 'propshaft'
-gem 'turbo-rails'
 
 # Boot speed
 gem 'bootsnap', require: false
