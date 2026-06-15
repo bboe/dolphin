@@ -15,7 +15,6 @@ gem 'puma', '~> 8.0'
 gem 'dartsass-rails'
 gem 'importmap-rails'
 gem 'propshaft'
-gem 'stimulus-rails'
 gem 'turbo-rails'
 
 # Boot speed
