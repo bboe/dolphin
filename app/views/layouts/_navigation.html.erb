@@ -1,18 +1,10 @@
-<nav class="navbar navbar-default navbar-inverse">
+<nav class="navbar navbar-expand navbar-dark bg-dark">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand no-pad" href="#"><%= image_tag('dolphin.png', class: 'inline') %><%= Rails.configuration.app_title %></a>
-    </div>
+    <a class="navbar-brand no-pad" href="#"><%= image_tag('dolphin.png', class: 'inline') %><%= Rails.configuration.app_title %></a>
 
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle no-pad" data-toggle="dropdown" role="button" aria-expanded="false">
-          <%= display_user(current_user) %><span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-            <li><%= link_to "Re-Authenticate", user_google_oauth2_omniauth_authorize_path %></li>
-          </ul>
-      </li>
+    <ul class="navbar-nav ms-auto align-items-center">
+      <li class="nav-item"><span class="navbar-text me-2"><%= display_user(current_user) %></span></li>
+      <li class="nav-item"><%= button_to "Re-Authenticate", user_google_oauth2_omniauth_authorize_path, method: :post, class: "btn btn-link no-pad" %></li>
     </ul>
   </div>
 </nav>

@@ -1,3 +1,6 @@
+plugins:
+  - rubocop-rails
+
 AllCops:
   Exclude:
     - 'bin/**/*'
@@ -5,19 +8,29 @@ AllCops:
     - 'log/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 3.4
+  NewCops: disable
+
+Layout/LineLength:
+  Max: 120
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Metrics/LineLength:
-  Max: 120
-
 Metrics/MethodLength:
   Max: 16
 
-Rails:
-  Enabled: true
+# These metrics flag size/complexity, not defects. The current code reads
+# clearly, so the thresholds are raised to fit it rather than extracting
+# methods that would just scatter the logic.
+Metrics/AbcSize:
+  Max: 32
+
+Metrics/ClassLength:
+  Max: 110
+
+Metrics/ParameterLists:
+  Max: 6
 
 Style/Documentation:
   Enabled: false

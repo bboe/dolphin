@@ -1,4 +1,5 @@
-<div class="well well-sm">
+<div class="card">
+  <div class="card-body">
 
 <p>Encourage <%= current_user.name %> to lock her/his computer by dolphining
    her/him. Just type in your email address on this web site from
@@ -7,9 +8,12 @@
    service yourself before you can dolphin someone.</p>
 
 <%= form_for(@dolphin || Dolphin.new) do |f| %>
-  <%= f.label :from, value: 'Your Email' %>
-  <%= f.text_field :from, autofocus: true %>
-  <%= f.submit 'Dolphin!' %>
+  <div class="mb-3">
+    <%= f.label :from, value: 'Your Email', class: 'form-label' %>
+    <%= f.text_field :from, autofocus: true, class: 'form-control' %>
+  </div>
+  <%= f.submit 'Dolphin!', class: 'btn btn-primary' %>
 <% end %>
 
+  </div>
 </div>
