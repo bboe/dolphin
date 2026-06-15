@@ -9,7 +9,7 @@ gem 'rails', '~> 8.0'
 
 # Drivers / server
 gem 'pg'
-gem 'puma', '~> 6.0'
+gem 'puma', '~> 8.0'
 
 # Asset pipeline (Propshaft + Hotwire + Dart Sass)
 gem 'dartsass-rails'
@@ -22,7 +22,7 @@ gem 'turbo-rails'
 gem 'bootsnap', require: false
 
 # Authentication
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 5.0'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
