@@ -36,8 +36,3 @@ end
 group :development, :test do
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
 end
-
-group :test do
-  gem 'minitest-ci'
-  gem 'mocha'
-end

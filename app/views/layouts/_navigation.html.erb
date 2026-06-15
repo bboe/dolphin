@@ -5,14 +5,8 @@
     </div>
 
     <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle no-pad" data-toggle="dropdown" role="button" aria-expanded="false">
-          <%= display_user(current_user) %><span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-            <li><%= button_to "Re-Authenticate", user_google_oauth2_omniauth_authorize_path, method: :post, class: "btn btn-link no-pad" %></li>
-          </ul>
-      </li>
+      <li><p class="navbar-text"><%= display_user(current_user) %></p></li>
+      <li><%= button_to "Re-Authenticate", user_google_oauth2_omniauth_authorize_path, method: :post, class: "btn btn-link no-pad" %></li>
     </ul>
   </div>
 </nav>
