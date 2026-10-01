@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '4.0.5'
 
 # Rails framework
-gem 'rails', '~> 8.0'
+gem 'rails', '~> 8.1'
 
 # Drivers / server
 gem 'pg'
